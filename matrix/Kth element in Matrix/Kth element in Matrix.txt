@@ -1,0 +1,29 @@
+int kthSmallest(int mat[MAX][MAX], int n, int k)
+{
+  priority_queue<int, vector<int>, greater<int> > pq; // minheap;
+  
+  for(int i=0; i<n; i++)
+  {
+      for(int j=0; j<n; j++)
+      {
+          pq.push(mat[i][j]);
+      }
+  }
+  
+  int x = 0;
+  int curr;
+  while(!pq.empty())
+  {
+      if(x < k)
+      {
+          curr = pq.top();
+          pq.pop();
+          x++;
+      }
+      else
+      {
+          break;
+      }
+  }
+  return curr;
+}
