@@ -1,0 +1,70 @@
+int search(int key, vector<int> v)
+{
+    int n = v.size();
+    int s = 0;
+    int e = n-1;
+
+    int mid = s + (e-s)/2;
+    while(s <= e)
+    {
+        if(v[mid] == key)
+        return mid;
+
+        else if(key > v[mid])
+        {
+            s = mid+1;
+        }
+        else
+        {
+            e = mid-1;
+        }
+        mid = s + (e-s)/2;
+    }
+    return -1;
+}
+vector<int> findCommonElements(vector<vector<int>> &mat)
+{
+    int m = mat.size();
+    int n = mat[0].size();
+
+    vector<int> ans;
+    set<int> s;
+    bool temp;
+
+    map<int, bool> mp;
+    for(int i=0; i<n; i++)
+    {
+        mp[mat[0][i]] = false;
+    }
+
+    for(int i=1; i<m; i++)
+    {
+        sort(mat[i].begin(), mat[i].end());
+    }
+    for(int j=0; j<n; j++) // first row 
+    {
+        temp = false;
+        int ele = mat[0][j];
+        if(mp[ele] == false)
+        {
+            mp[ele] = true;
+            for(int i=1; i<m; i++)
+            {
+                // sort(mat[i].begin(), mat[i].end());
+                int x = search(ele, mat[i]);
+                if(x == -1)
+                {
+                    temp = true;
+                    break;
+                }
+            }
+            if(temp == false)
+            {
+                ans.push_back(ele);
+            }
+        }
+    }
+
+    return ans;
+
+}
