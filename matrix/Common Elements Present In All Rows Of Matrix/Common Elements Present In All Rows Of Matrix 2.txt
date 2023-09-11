@@ -1,0 +1,32 @@
+vector<int> findCommonElements(vector<vector<int>> &mat)
+{
+    int n = mat.size(); // rows 
+    int m = mat[0].size();
+
+    map<int, int> mp;
+    for(int i=0; i<m; i++)
+    {
+        mp[mat[0][i]] = 1;
+    }
+
+    for(int i=1; i<n; i++)
+    {
+        for(int j=0; j<m; j++)
+        {
+            if(mp[mat[i][j]] == i)
+            {
+                mp[mat[i][j]]++;
+            }
+        }
+    }
+    
+    vector<int> ans;
+    for(auto i : mp)
+    {
+        if(i.second == n)
+        {
+            ans.push_back(i.first);
+        }
+    }
+    return ans;
+}
