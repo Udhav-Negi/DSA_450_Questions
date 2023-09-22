@@ -1,0 +1,100 @@
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+
+#define ll long long int
+class Solution{
+  public:
+    // arr[]: Input Array
+    // N : Size of the Array arr[]
+    // Function to count inversions in the array.
+    ll count = 0;
+    void merge(ll arr[], ll low, ll mid, ll high)
+    {
+        ll m = mid-low+1;
+        ll n = high - mid;
+        
+        ll left[m], right[n];
+        for(ll i=low; i<=mid; i++)
+        {
+            left[i-low] = arr[i];
+        }
+        
+        for(ll i=mid+1; i<=high; i++)
+        {
+            right[i-mid-1] = arr[i];
+        }
+        
+        ll i=0, j=0;
+        
+        ll x = low;
+        while(i < m && j < n)
+        {
+            if(left[i] <= right[j])
+            {
+                arr[x++] = left[i++];
+            }
+            else
+            {
+                count = count + (m-i);
+                arr[x++] = right[j++];
+            }
+        }
+        
+        while(i < m)
+        {
+            arr[x++] = left[i++];
+        }
+        
+        while(j < n)
+        {
+            arr[x++] = right[j++];
+        }
+    }
+    
+    void mergeSort(ll arr[], ll low, ll high)
+    {
+        if(low < high)
+        {
+            int mid = low + (high - low)/2;
+            mergeSort(arr, low, mid);
+            mergeSort(arr, mid+1, high);
+            merge(arr, low , mid, high);
+        }
+    }
+    
+    long long int inversionCount(long long arr[], long long n)
+    {
+        mergeSort(arr, 0, n-1);
+        return count;
+        
+    }
+
+};
+
+//{ Driver Code Starts.
+
+int main() {
+    
+    long long T;
+    cin >> T;
+    
+    while(T--){
+        long long N;
+        cin >> N;
+        
+        long long A[N];
+        for(long long i = 0;i<N;i++){
+            cin >> A[i];
+        }
+        Solution obj;
+        cout << obj.inversionCount(A,N) << endl;
+    }
+    
+    return 0;
+}
+
+// } Driver Code Ends
