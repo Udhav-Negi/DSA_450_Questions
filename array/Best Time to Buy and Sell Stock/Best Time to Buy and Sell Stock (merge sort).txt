@@ -1,0 +1,66 @@
+class Solution {
+public:
+    int ans = 0;
+    void merge(vector<int> &prices, int low, int mid, int high)
+    {
+        int m = mid-low+1;
+        int n = high - mid;
+
+        int left[m];
+        int right [n];
+
+        for(int i=low; i<=mid; i++)
+        {
+            left[i-low] = prices[i];
+        }
+
+        for(int i=mid+1; i<=high; i++)
+        {
+            right[i-mid-1] = prices[i];
+        }
+
+        int i=0, j=0;
+        int x = low;
+        while(i < m && j < n)
+        {
+            if(left[i] < right[j])
+            {
+                ans = max(ans, abs(left[i] - right[n-1]));
+                prices[x++] = left[i++];
+            }
+            else
+            {
+                prices[x++] = right[j++];
+            }
+        }
+
+        while(i < m)
+        {
+            prices[x++] = left[i++];
+        }
+
+        while(j < n)
+        {
+            prices[x++] = right[j++];
+        }
+    }
+
+    void mergeSort(vector<int> &prices, int low, int high)
+    {
+        if(low < high)
+        {
+            int mid = low + (high-low)/2;
+
+            mergeSort(prices, low, mid);
+            mergeSort(prices, mid+1, high);
+            merge(prices, low, mid, high);
+        }
+    }
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        int low = 0;
+        int high = n-1;
+        mergeSort(prices, low, high);
+        return ans;
+    }
+};
