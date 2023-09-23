@@ -1,0 +1,24 @@
+ int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        vector<int> dp(n);
+
+        int buy = INT_MAX;
+        int profit = 0;
+
+        dp[0] = 0;
+        for(int i=1; i<dp.size(); i++)
+        {
+            buy = min(buy, prices[i-1]);
+            if(buy < prices[i])
+            {
+                dp[i] = prices[i] - buy;
+            }
+            else
+            {
+                dp[i] = 0;
+            }
+
+            profit = max(profit, dp[i]);
+        }
+        return profit;
+    }
