@@ -1,0 +1,60 @@
+	void rearrange(int arr[], int n) {
+	    vector<int> pos, neg;
+	    
+	    for(int i=0; i<n; i++)
+	    {
+	        if(arr[i] < 0)
+	        {
+	            neg.push_back(arr[i]);
+	        }
+	        else
+	        {
+	            pos.push_back(arr[i]);
+	        }
+	    }
+	    
+	    for(int i=0; i<n; i++)
+	    {
+	        arr[i] = INT_MIN;
+	    }
+	    
+	    
+	    if(pos.size() < neg.size())
+	    {
+	        int x = 0;
+	        for(int i=0; i<pos.size(); i++)
+	        {
+	            arr[x] = pos[i];
+	            x = x+2;
+	        }
+	        
+	        x = 0;
+	        
+	        for(int i=0; i<n; i++)
+	        {
+	            if(arr[i] == INT_MIN)
+	            {
+	                arr[i] = neg[x++];
+	            }
+	        }
+	    }
+	    else
+	    {
+            int x = 1;
+	        for(int i=0; i<neg.size(); i++)
+	        {
+	            arr[x] = neg[i];
+	            x = x+2;
+	        }
+	        
+	        x = 0;
+	        
+	        for(int i=0; i<n; i++)
+	        {
+	            if(arr[i] == INT_MIN)
+	            {
+	                arr[i] = pos[x++];
+	            }
+	        }
+	    }
+	}
