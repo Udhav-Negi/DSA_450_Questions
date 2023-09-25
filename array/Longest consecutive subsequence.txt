@@ -1,0 +1,36 @@
+ int findLongestConseqSubseq(int arr[], int n)
+    {
+      map<int, int> m;
+      
+      for(int i=0; i<n; i++)
+      {
+          m[arr[i]]++;
+      }
+      
+      int ans=0, len=0, first=-1;
+      
+      for(auto i : m)
+      {
+          if(first == -1)
+          {
+              first = i.first;
+              len = 1;
+          }
+          else
+          {
+              if(i.first - first == 1)
+              {
+                  len++;
+                  first = i.first;
+              }
+              else
+              {
+                  first = i.first;
+                len=1;
+              }
+          }
+          
+          ans = max(ans, len);
+      }
+      return ans;
+    }
