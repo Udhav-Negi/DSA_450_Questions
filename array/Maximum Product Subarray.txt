@@ -1,0 +1,31 @@
+	long long maxProduct(vector<int> arr, int n) {
+	    long long  prod = 1;
+	    long long ans = INT_MIN;
+	    
+	    for(long long i=0; i<n; i++)
+	    {
+	        if(arr[i] == 0)
+	        {
+	            ans = max(ans, (long long)arr[i]);
+	            prod = 1;
+	            continue;
+	        }
+	        prod = prod * arr[i];
+	        ans = max(ans, (long long)prod);
+	    }
+	    
+	    prod = 1;
+	    for(long long i=n-1; i>=0; i--)
+	    {
+	        if(arr[i] == 0)
+	        {
+	            
+	            ans = max(ans, (long long)(arr[i]));
+	            prod = 1;
+	            continue;
+	        }
+	        prod = prod * arr[i];
+	        ans = max(ans, (long long)prod);
+	    }
+	    return ans;
+	}
