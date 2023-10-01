@@ -1,0 +1,37 @@
+ string countAndSay(int n) {
+       string curr = "" ;
+       string ans;
+       vector<char> temp;
+       for(int i=1; i<=n; i++)
+       {
+           if(i == 1)
+           {
+               curr = "1";
+           }
+           else
+           {
+               temp.clear(), ans="";
+               for(int j=0; j<curr.size(); j++)
+               {
+                   if(temp.empty())
+                   temp.push_back(curr[j]);
+
+                   else if(temp.back() == curr[j])
+                   temp.push_back(curr[j]);
+
+                   else //not equal
+                   {
+                    ans = ans + to_string(temp.size());
+                    ans.push_back(temp.back());
+
+                    temp.clear();
+                    temp.push_back(curr[j]);
+                   }
+               }
+                ans = ans + to_string(temp.size());
+                ans.push_back(temp.back());
+               curr = ans;
+           }
+       }
+       return curr;
+    }
