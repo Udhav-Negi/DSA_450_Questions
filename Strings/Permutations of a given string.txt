@@ -1,0 +1,30 @@
+void solve(string str, vector<string> &ans, int index)
+	    {
+	        if(index >= str.size())
+	        {
+	            if(find(ans.begin(), ans.end(), str) == ans.end())
+	            {
+	                ans.push_back(str);
+	            }
+	            return;
+	        }
+	        
+	        for(int i=index; i<str.size(); i++)
+	        {
+	            swap(str[index], str[i]);
+	            solve(str, ans, index+1);
+	            
+	            swap(str[index], str[i]);
+	            
+	        }
+	    }
+	
+		vector<string>find_permutation(string str)
+		{
+		    int index = 0;
+		    vector<string> ans;
+		    solve(str, ans, index);
+		    
+		    sort(ans.begin(), ans.end());
+		    return ans;
+		}
