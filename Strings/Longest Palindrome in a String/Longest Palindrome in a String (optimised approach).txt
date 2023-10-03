@@ -1,0 +1,43 @@
+  
+    string solve(string s, int st, int end)
+    {
+        int n = s.size();
+        while(st >= 0 && end < n)
+        {
+            if(s[st] == s[end])
+            {
+                st--, end++;
+            }
+            
+            else
+            break;
+        }
+        
+        return s.substr(st+1, end-st-1);
+    }
+    
+    string longestPalin (string s) {
+        int n = s.size();
+        
+        string temp, ans = "";
+        int len = 0;
+        for(int i=0; i<n; i++)
+        {
+            temp = solve(s, i, i);
+            
+            if(temp.length() > len)
+            {
+                len = temp.length();
+                ans = temp;
+            }
+            
+            temp = solve(s, i, i+1);
+            if(temp.length() > len)
+            {
+                len = temp.length();
+                ans = temp;
+            }
+        }
+        
+        return ans;
+    }
