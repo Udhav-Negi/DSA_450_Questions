@@ -1,0 +1,43 @@
+
+int countRev (string s)
+{
+    int n = s.length();
+    if(n%2 != 0)
+    return -1;
+    
+    
+    stack<char> st;
+    
+    int a = 0, b = 0; // a - opening and b - closing 
+    for(int i=0; i<n; i++)
+    {
+        if(st.empty())
+        {
+            st.push(s[i]);
+            s[i] == '{' ? a++ : b++;
+        }
+        
+        else if(s[i] == '}') 
+        {
+            if(st.top() == '{')
+            {
+                st.pop();
+                a--;
+                continue;
+            }
+            else
+            {
+                st.push(s[i]);
+                b++;
+            }
+        }
+        
+        else
+        {
+            st.push(s[i]);
+            a++;
+        }
+    }
+    
+    return (a+1)/2 + (b+1)/2;
+}
