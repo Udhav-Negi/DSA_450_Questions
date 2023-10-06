@@ -1,0 +1,57 @@
+ vector <int> search(string pat, string txt)
+        {
+            long long mod = 1000000007;
+            int prime = 31;
+            long long dhv = 30;
+            long long int power = prime;
+            
+            dhv = pat[0]-'a'+1;
+            
+            for(int i=1; i<pat.length(); i++)
+            {
+                dhv = (dhv + (pat[i]-'a'+1)*power)%mod;
+                power = (power*prime)%mod;
+            }
+            
+            int n = txt.length();
+            long long dp[n];
+            power = prime;
+            long long storePower[n];
+            storePower[0] = 1;
+            
+            dp[0] = txt[0]-'a'+1;
+            
+            for(int i=1; i<n; i++)
+            {
+                int num = txt[i]-'a'+1;
+                dp[i] = (dp[i-1] + num*power)%mod;
+                storePower[i] = power;
+                power = (power*prime)%mod;
+            }
+            
+            int sp = 0;
+            int ep = pat.length()-1;
+            vector<int> ans;
+            while(ep < txt.length())
+            {
+                long long win = dp[ep];
+                
+                if(sp > 0)
+                {
+                    win = (dp[ep] - dp[sp-1]+mod)%mod;
+                }
+                
+                if(win == (dhv*storePower[sp])%mod)
+                {
+                    ans.push_back(sp+1);
+                }
+                sp++, ep++;
+            }
+            
+            if(ans.empty())
+            return {-1};
+            return ans;
+            
+            
+            
+        }
