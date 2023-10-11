@@ -1,0 +1,45 @@
+
+    bool is_Valid(string str)
+    {
+        int n = str.size();
+        
+        if(n > 3 || n < 0)
+        return false;
+        
+        if(n > 1 && str[0] == '0')
+        return false;
+        
+        int num = stoi(str);
+        if(num < 0 || num > 255)
+        return false;
+        return true;
+    }
+    vector<string> genIp(string &s) {
+        vector<string> ans;
+        int n = s.size();
+        
+        for(int i=0; i<n; i++)
+        {
+            for(int j=i+1; j<n; j++)
+            {
+                for(int k=j+1; k<n-1; k++)
+                {
+                    string str1 = s.substr(0, i+1);
+                    string str2 = s.substr(i+1, j-i);
+                    string str3 = s.substr(j+1, k-j);
+                    string str4 = s.substr(k+1, n-1-k);
+                    
+                    if(is_Valid(str1) and is_Valid(str2) and is_Valid(str3) and is_Valid(str4))
+                    {
+                        string str = str1 + "." + str2 + "." + str3 + "." + str4;
+                        ans.push_back(str);
+                    }
+                    
+                }
+            }
+        }
+        
+        if(ans.size() == 0)
+        return {"-1"};
+        return ans;
+    }
