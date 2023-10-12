@@ -1,0 +1,30 @@
+ int findSubString(string str)
+    {
+        set<char> s;
+        int n = str.size();
+        int curr = 0, len = INT_MAX;
+        
+        for(int i=0; i<n; i++)
+        {
+            curr = 0;
+            for(int j=0; j<n; j++)
+            {
+                s.insert(str[j]);
+            }
+            
+            for(int k=i; k<n; k++)
+            {
+                if(s.find(str[k]) != s.end())
+                {
+                    s.erase(str[k]);
+                }
+                curr++;
+                
+                if(s.empty())
+                {
+                    len = min(len, curr);
+                }
+            }
+        }
+        return len;
+    }

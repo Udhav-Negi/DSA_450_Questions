@@ -1,0 +1,37 @@
+ int findSubString(string str)
+    {
+        int n = str.size();
+        unordered_map<char, int> m;
+        
+        for(int i=0; i<n; i++)
+        {
+            m[str[i]]++;
+        }
+        
+        int distinct = m.size();
+        int head = 0, tail = 0, ans = n;
+        m.clear();
+        while(head < n)
+        {
+            m[str[head]]++;
+            
+            if(m.size() == distinct)
+            {
+                while(tail <= head)
+                {
+                    m[str[tail]]--;
+                    if(m[str[tail]] == 0)
+                    {
+                        
+                        m.erase(str[tail]);
+                        ans = min(ans, head-tail+1);
+                        break;
+                    }
+                    else
+                    tail++;
+                }
+            }
+            head++;
+        }
+        return ans;
+    }
