@@ -1,0 +1,49 @@
+ string rearrangeString(string str)
+    {
+        int n = str.size();
+        map<char, int> m;
+        
+        for(char i='a'; i<='z'; i++)
+        {
+            m[i] = 0;
+        }
+        
+        for(int i=0; i<n; i++)
+        {
+            m[str[i]]++;
+        }
+        
+        priority_queue<pair<int, char>> pq;
+        for(char i='a'; i<='z'; i++)
+        {
+            if(m[i] > 0)
+            {
+                pq.push({m[i], i});
+            }
+            
+            if(m[i] > (n+1)/2)
+            return "-1";
+        }
+
+        
+        int x = 0, init = 0;
+        
+        while(!pq.empty())
+        {
+            int freq = pq.top().first;
+            char ch = pq.top().second;
+            pq.pop();
+            
+            for(int i=0; i<freq; i++)
+            {
+                str[x] = ch;
+                x += 2;
+                if(x >= n)
+                {
+                    init += 1;
+                    x = init;
+                }
+            }
+        }
+        return str;
+    }
