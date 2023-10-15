@@ -1,0 +1,29 @@
+string removeConsecutiveCharacter(string s)
+    {
+        int n = s.size();
+        char ch = s[0];
+        int i=1;
+        while(i < n)
+        {
+            if(s[i] == ch)
+            {
+                // s.erase(s[i]);
+                s[i] = '0';
+            }
+            else 
+            {
+                ch = s[i];
+            }
+            i++;
+        }
+        
+        string ans = "";
+        for(int i=0; i<n; i++)
+        {
+            if(s[i] != '0')
+            {
+                ans = ans + s[i];
+            }
+        }
+        return ans;
+    }

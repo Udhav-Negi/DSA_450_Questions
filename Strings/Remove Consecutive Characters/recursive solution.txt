@@ -1,0 +1,36 @@
+ void solve(int index, stack<char> &st, string &s)
+    {
+        if(index == s.size())
+        {
+            return;
+        }
+        
+        if(st.top() == s[index])
+        {
+            solve(index+1, st, s);
+        }
+        
+        else 
+        {
+            st.push(s[index]);
+            solve(index+1, st, s);
+        }
+    }
+    string removeConsecutiveCharacter(string s)
+    {
+        int n = s.size();
+        stack<char> st;
+        st.push(s[0]);
+        int index = 1;
+        
+        solve(index, st, s);
+        string ans = "";
+        while(!st.empty())
+        {
+            ans = ans + st.top();
+            st.pop();
+        }
+        
+        reverse(ans.begin(), ans.end());
+        return ans;
+    }
