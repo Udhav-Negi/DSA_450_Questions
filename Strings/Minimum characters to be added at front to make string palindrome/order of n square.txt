@@ -1,0 +1,29 @@
+bool checkPalindrome(string str)
+    {
+        int i = 0, j = str.size()-1;
+        while(i < j)
+        {
+            if(str[i] == str[j])
+            {
+                i++, j--;
+            }
+            else
+            return false;
+        }
+        return true;
+    }
+    int minChar(string str){
+        int n = str.size();
+        int added = 0;
+        
+        while(n > 0)
+        {
+            if(!checkPalindrome(str.substr(0, n-added)))
+            {
+                added++;
+            }
+            else
+            break;
+        }
+        return added;
+    }
