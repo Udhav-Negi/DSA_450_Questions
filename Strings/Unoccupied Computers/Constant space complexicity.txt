@@ -1,0 +1,40 @@
+int solve(int n, string s) {
+        map<char, pair<int, bool> > m;
+        for(int i='A'; i<='Z'; i++)
+        {
+            m[i].first = 0;
+            m[i].second = 1;
+        }
+        
+        int avail = n, count = 0;
+        for(int i=0; i<s.size(); i++)
+        {
+            char ch = s[i];
+            m[ch].first++;
+            
+            if(m[ch].first == 1)
+            {
+                if(avail > 0)
+                {
+                    avail--;
+                    m[ch].second = 0;
+                }
+                else 
+                {
+                    m[ch].second = 1;
+                    count++;
+                }
+            }
+            
+            else if(m[ch].first == 2)
+            {
+                if(m[ch].second == 0)
+                {
+                    avail++;
+                    m[ch].second = 1;
+                }
+                m[ch].first = 0;
+            }
+        }
+        return count;
+    }
