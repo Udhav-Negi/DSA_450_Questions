@@ -1,0 +1,23 @@
+ void solve( vector<vector<string>> &ans, vector<string> curr, int row, int col, vector<vector<string>>&list)
+    {
+        if(row >= list.size() || col >= list[0].size())
+        {
+            ans.push_back(curr);
+            return;
+        }
+        
+        for(int j=0; j<list[row].size(); j++)
+        {
+            curr.push_back(list[row][j]);
+            solve(ans, curr, row+1, j, list);
+            auto it = --curr.end();
+            curr.erase(it);
+        }
+    }
+    vector<vector<string>> sentences(vector<vector<string>>&list){
+        vector<vector<string>> ans;
+        vector<string> curr;
+        int row = 0, col = 0;
+        solve(ans, curr, row, col, list);
+        return ans;
+    }
