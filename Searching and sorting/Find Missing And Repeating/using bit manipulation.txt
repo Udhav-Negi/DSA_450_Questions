@@ -1,0 +1,59 @@
+ vector<int> findTwoElement(vector<int> arr, int n) {
+        int x = 0;
+        for(int i=0; i<n; i++)
+        {
+            x = x ^ arr[i];
+        }
+        
+        for(int i=1; i<=n; i++)
+        {
+            x = x ^ i;
+        }
+        
+        int rsbm = x & (-x);
+        int a = 0, b = 0;
+        
+        for(int i=0; i<n; i++)
+        {
+            if(arr[i] & rsbm)
+            {
+                a = a ^ arr[i];
+            }
+            
+            else 
+            {
+                b = b ^ arr[i];
+            }
+        }
+        
+        for(int i=1; i<=n; i++)
+        {
+            if(i & rsbm)
+            {
+                a = a ^ i;
+            }
+            
+            else 
+            {
+                b = b ^ i;
+            }
+        }
+        
+        vector<int> ans;
+        
+        for(auto i : arr)
+        {
+            if(i == a)
+            {
+                ans.push_back(a);
+                ans.push_back(b);
+            }
+            else if(i == b)
+            {
+                ans.push_back(b);
+                ans.push_back(a);
+            }
+        }
+        
+        return ans;
+    }
