@@ -1,0 +1,44 @@
+ vector<long long int> productExceptSelf(vector<long long int>& nums, int n) {
+        if(n == 1)
+        return {1};
+        
+        long long left[n], right[n];
+        long long prod = nums[0];
+        left[0] = 1;
+        for(int i=1; i<n; i++)
+        {
+            left[i] = prod;
+            prod = prod * nums[i];
+        }
+    
+        
+        prod = nums[n-1], right[n-1] = 1;
+        
+        for(int i=n-2; i>=0; i--)
+        {
+            right[i] = prod;
+            prod = prod * nums[i];
+        }
+        
+        
+        vector<long long > ans(n, -1);
+        
+        for(int i=0; i<n; i++)
+        {
+            if(i == 0)
+            {
+                ans[i] = right[i];
+            }
+            
+            else if(i == n-1)
+            {
+                ans[i] = left[i];
+            }
+            
+            else 
+            {
+                ans[i] = left[i] * right[i];
+            }
+        }
+        return ans;
+    }
