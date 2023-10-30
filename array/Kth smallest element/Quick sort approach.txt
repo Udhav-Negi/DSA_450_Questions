@@ -1,0 +1,54 @@
+int partition(int arr[], int l, int r, int k)
+{
+	
+    int count = 0;
+    for(int i=l+1; i<=r; i++)
+    {
+        if(arr[i] <= arr[l])
+        {
+            count++;
+        }
+    }
+    
+    int pivotIndex = l+count;
+    
+    swap(arr[l], arr[pivotIndex]);
+    
+    while(l < pivotIndex && r > pivotIndex)
+    {
+        while(arr[l] < arr[pivotIndex])l++;
+        
+        while(arr[r] > arr[pivotIndex])r--;
+        
+        if(l < pivotIndex && r > pivotIndex)
+        {
+            swap(arr[l], arr[r]);
+            l++, r--;
+        }
+    }
+    
+    return pivotIndex;
+}
+
+int solve(int arr[], int l, int r, int k)
+{
+    int pivotIndex = partition(arr, l, r, k);
+
+    if(pivotIndex == k)
+    return arr[k];
+    
+    else if(pivotIndex > k)
+    return solve(arr, l, pivotIndex-1, k);
+    
+	else if(pivotIndex < k)
+    return solve(arr, pivotIndex+1, r, k);
+    
+    else 
+    return -1;
+}
+
+
+int kthSmallest(int arr[], int l, int r, int k)
+{
+    return solve(arr, l, r, k-1);
+}
