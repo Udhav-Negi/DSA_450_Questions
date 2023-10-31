@@ -1,0 +1,40 @@
+int search(int arr[], int low, int high, int key){
+        // int low = l, high = h;
+        // int mid = low + (high-low)/2;
+        
+        if(low > high)
+        return -1;
+        
+        int mid = low + (high-low)/2;
+        
+        if(arr[mid] == key)
+        return mid;
+        
+        else if(arr[low] <= arr[mid])
+        {
+            if(key >= arr[low] && key < arr[mid])
+            {
+                high = mid-1;
+            }
+            
+            else
+            {
+                low = mid+1;
+            }
+            
+        }
+        
+        else if(arr[high] >= arr[mid])
+        {
+            if(key > arr[mid] && key <= arr[high])
+            {
+                low = mid+1;
+            }
+            
+            else 
+            {
+                high = mid-1;
+            }
+        }
+        return search(arr, low, high, key);
+    }
