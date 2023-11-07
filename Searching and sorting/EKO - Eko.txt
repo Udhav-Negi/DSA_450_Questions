@@ -1,0 +1,65 @@
+#include <iostream>
+using namespace std;
+
+int isPossible(int arr[], int n, int m, int mid)
+{
+	int sum = 0;
+	for(int i=0; i<n; i++)
+	{
+		if(arr[i] > mid)
+		{
+			sum += (arr[i]-mid);
+			if(sum >= m)
+			{
+				break;
+			}
+		}
+	}
+	return sum;
+}
+
+int main() {
+	
+	int n, m;
+	cin>>n>>m;
+	
+	int arr[n];
+	
+	int low=0, high=-1;
+	for(int i=0; i<n; i++)
+	{
+		cin>>arr[i];
+		high = max(high, arr[i]);
+	}
+	
+	int mid = low+(high-low)/2;
+	int ans;
+	while(low <= high)
+	{
+		int sum = isPossible(arr, n, m, mid);
+		if(sum == m)
+		{
+			ans = mid;
+			break;
+		}
+		
+		else if(sum > m)
+		{
+			ans = mid;
+			low = mid+1;
+		}
+		
+		else 
+		{
+			high = mid-1;
+		}
+		
+		mid = low+(high-low)/2;
+	}
+	
+	cout<<ans<<endl;
+	
+	
+
+	return 0;
+}
