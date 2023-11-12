@@ -1,0 +1,47 @@
+#include <bits/stdc++.h> 
+
+void merge(vector<int> &arr, int start, int end)
+{
+    int mid = start + (end-start)/2;
+    
+    if(arr[mid] <= arr[mid+1])
+    return;
+
+    int start2 = mid+1;
+
+    while(start <= mid && start2 <= end)
+    {
+        if(arr[start] <= arr[start2])
+        start++;
+
+        else 
+        {
+            int temp = arr[start2];
+            for(int i=start2; i>=start+1; i--)
+            {
+                arr[i] = arr[i-1];
+            }
+
+            arr[start] = temp;
+            start++, start2++, mid++;
+        }
+    }
+}
+
+
+void mergeSortHelper(vector<int> &arr, int start, int end)
+{
+    if(start < end)
+    {
+        int mid = start + (end-start)/2;
+        mergeSortHelper(arr, start, mid);
+        mergeSortHelper(arr, mid+1, end);
+        merge(arr, start, end);
+    }
+}
+vector<int> mergeSort(vector<int> &arr)
+{
+    int n = arr.size();
+    mergeSortHelper(arr, 0, n-1);
+    return arr;
+}
