@@ -1,0 +1,25 @@
+ bool detectLoop(Node* head)
+    {
+        if(!(head->next))
+        {
+            return head->next == head;
+        }
+        
+        Node* slowptr = head;
+        Node* fastptr = head->next;
+        
+        while(fastptr)
+        {
+            fastptr = fastptr->next;
+            if(fastptr)
+            {
+                fastptr = fastptr->next;
+            }
+            
+            if(fastptr == slowptr)
+            return true;
+            
+            slowptr = slowptr->next;
+        }
+        return false;
+    }
