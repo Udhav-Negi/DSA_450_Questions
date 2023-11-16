@@ -1,0 +1,47 @@
+bool isCircular(Node* head){
+    if(!head)
+    return true;
+    if(!(head->next))
+    {
+        return head->next == head;
+    }
+
+    Node* temp = head;
+    Node* slowptr = head;
+    Node* fastptr = head->next;
+    bool cycle = false;
+
+    // this is the code for floyd cycle 
+    while(fastptr)
+    {
+        fastptr = fastptr->next;
+        if(fastptr) 
+        {
+            fastptr = fastptr->next;
+        }
+
+        if(fastptr == slowptr)
+        {
+            cycle = true;
+            break;
+        }
+
+        slowptr = slowptr->next;
+    }
+
+    if(cycle)
+    {
+        Node* prevslow = slowptr;
+        while(slowptr)
+        {
+            if(slowptr->next == head)
+            return true;
+
+            if(slowptr->next == prevslow)
+            return false;
+
+            slowptr = slowptr->next;
+        }
+    }
+    return false;
+}
