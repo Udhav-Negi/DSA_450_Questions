@@ -1,0 +1,37 @@
+Node * removeDuplicates( Node *head) 
+    {
+        unordered_map<int, pair<int, bool>> m;
+        Node* temp = head;
+        while(temp)
+        {
+            m[temp->data].first++;
+            m[temp->data].second = false;
+            temp = temp->next;
+        }
+        
+        
+        Node* prev = NULL;
+        Node* curr = head;
+    
+        while(curr)
+        {
+            
+            if(m[curr->data].first > 1 && m[curr->data].second)
+            {
+                m[curr->data].first--;
+                prev->next = curr->next;
+                Node* temp = curr->next;
+                curr->next = NULL;
+                delete curr;
+                curr = temp;
+            }
+            
+            else 
+            {
+                m[curr->data].second = true;
+                prev = curr;
+                curr = curr->next;
+            }
+        }
+        return head;
+    }
