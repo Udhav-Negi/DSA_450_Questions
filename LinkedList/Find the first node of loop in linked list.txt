@@ -1,0 +1,35 @@
+Node* floydDetection(Node* head)
+    {
+        Node* slow = head, *fast = head;
+        
+        while(fast)
+        {
+            fast = fast->next;
+            if(fast)
+            fast = fast->next;
+            
+            slow = slow->next;
+            
+            if(fast == slow )
+            return fast;
+        }
+        return NULL;
+    }
+    int findFirstNode(Node* head)
+    {
+        Node* loop = floydDetection(head);
+        if(!loop)
+        return -1;
+        
+        Node* slow = head;
+        
+        while(slow != loop)
+        {
+            slow = slow->next;
+            loop = loop->next;
+        }
+        
+        return slow->data;
+        
+        
+    }
