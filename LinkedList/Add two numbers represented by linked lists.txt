@@ -1,0 +1,98 @@
+Node*  reverse(Node* head)
+    {
+        Node* prev = NULL;
+        Node* curr = head;
+        while(curr)
+        {
+            Node* temp = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = temp;
+        }
+        return prev;
+    }
+    struct Node* addTwoLists(struct Node* first, struct Node* second)
+    {
+        first = reverse(first);
+        second = reverse(second);
+        
+        int carry = 0;
+        Node* newHead = new Node(-1);
+        Node* temp = newHead;   
+        
+        while(first && second)
+        {
+            int sum = first->data + second->data + carry;
+            int digit;
+            if(sum > 9)
+            {
+                digit = sum%10;
+                carry = sum/10;
+                Node* newNode = new Node(digit);
+                temp->next = newNode;
+                temp = temp->next;
+            }
+            else 
+            {
+                Node* newNode = new Node(sum);
+                carry = 0;
+                temp->next = newNode;
+                temp = temp->next;
+            }
+            first = first->next;
+            second = second->next;
+        }
+        
+        while(first)
+        {
+            int sum = first->data + carry;
+            int digit;
+            if(sum > 9)
+            {
+                digit = sum%10;
+                carry = sum/10;
+                Node* newNode = new Node(digit);
+                temp->next = newNode;
+                temp = temp->next;
+            }
+            else 
+            {
+                Node* newNode = new Node(sum);
+                carry = 0;
+                temp->next = newNode;
+                temp = temp->next;
+            }
+            first = first->next;
+        }
+        
+        while(second)
+        {
+            int sum = second->data + carry;
+            int digit;
+            if(sum > 9)
+            {
+                digit = sum%10;
+                carry = sum/10;
+                Node* newNode = new Node(digit);
+                temp->next = newNode;
+                temp = temp->next;
+            }
+            else 
+            {
+                Node* newNode = new Node(sum);
+                carry = 0;
+                temp->next = newNode;
+                temp = temp->next;
+            }
+            second = second->next;
+        }
+        
+        if(carry > 0)
+        {
+            Node* newNode = new Node(carry);
+            temp->next = newNode;
+            temp = temp->next;
+        }
+        
+        reverse(newHead->next);
+    }
