@@ -1,0 +1,30 @@
+long long len1 = findLength(head1);
+    long long len2 = findLength(head2);
+    
+    Node* temp1 = len1 >= len2 ? head1 : head2;
+    long long count = 0;
+    while(count < abs(len1-len2))
+    {
+        temp1 = temp1->next;
+        count++;
+    }
+    
+    Node* temp2;
+    if(len2 < len1)
+    {
+        temp2 = head2;
+    }
+    else 
+    {
+        temp2 = head1;
+    }
+    
+    while(temp1 && temp2)
+    {
+        if(temp1 == temp2)
+        return temp1->data;
+        
+        temp1 = temp1->next;
+        temp2 = temp2->next;
+    }
+    return -1;
