@@ -1,0 +1,21 @@
+ bool isPalindrome(Node *head)
+    {
+        //Your code here
+        Node* temp = head;
+        int num = 0;
+        while(temp)
+        {
+            num = 10*num + temp->data;
+            temp = temp->next;
+        }
+        
+        int reverse = 0;
+        int prev = num;
+        
+        while(num > 0)
+        {
+            reverse = 10*reverse + num%10;
+            num = num/10;
+        }
+        return prev == reverse;
+    }
