@@ -1,0 +1,63 @@
+vector<pair<int, int>> findPairsWithGivenSum(Node *head, int target)
+    {
+        
+        vector<pair<int, int>> v;
+        Node* first = head;
+        Node* second;
+        Node* temp = head;
+        
+        while(temp->next)
+        {
+            temp = temp->next;
+        }
+        second = temp;
+        bool cond1 = false, cond2 = false, cond3 = false;
+        while(first && second )
+        {
+            // cout<<"inside"<<endl;
+            cond1= false, cond2 = false, cond3 = false;
+            int x = first->data;
+            int y = second->data;
+            
+            if(x+y == target)
+            {
+                v.push_back({x, y});
+                cond1 = true;
+            }
+            else if(x+y > target)
+            {
+                cond2 = true;
+            }
+            else 
+            {
+                cond3 = true;
+            }
+            
+            if(first->next == second || second->prev == first)
+            {
+                break;
+            }
+            
+            if(cond1)
+            {
+                if(first->next == second->prev)
+                {
+                    break;
+                }
+                first = first->next;
+                second = second->prev;
+            }
+            
+            else if(cond2)
+            {
+                second = second->prev;
+            }
+            
+            else if(cond3)
+            {
+                first = first->next;
+            }
+        }
+        
+        return v;
+    }
