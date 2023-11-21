@@ -1,0 +1,77 @@
+Node* segregate(Node *head) {
+        
+        Node* temp = head;
+        Node* zero = new Node(-1);
+        Node* one = new Node(-1);
+        Node* two = new Node(-1);
+        
+        Node* zeroLast = zero;
+        Node* oneLast = one;
+        Node* twoLast = two;
+        
+        int zeroCnt=0, oneCnt=0, twoCnt=0;
+        
+        while(temp)
+        {
+            int x = temp->data;
+            
+            if(x == 0)
+            {
+                zeroLast->next = new Node(x);
+                zeroLast = zeroLast->next;
+                zeroCnt++;
+            }
+            
+            else if(x == 1)
+            {
+                oneLast->next = new Node(x);
+                oneLast = oneLast->next;
+                oneCnt++;
+            }
+            
+            else if(x == 2)
+            {
+                twoLast->next = new Node(x);
+                twoLast = twoLast->next;
+                twoCnt++;
+            }
+            temp = temp->next;
+        }
+        
+        if(oneCnt == 0)
+        {
+            if(twoCnt == 0)
+            return zero->next;
+            
+            else 
+            {
+                zeroLast->next = two->next;
+                return zero->next;
+            }
+        }
+        
+        else if(twoCnt == 0)
+        {
+            if(oneCnt == 0)
+            {
+                return zero->next;
+            }
+            
+            else 
+            {
+                zeroLast->next = one->next;
+                return zero->next;
+            }
+        }
+        
+        else 
+        {
+            zeroLast->next = one->next;
+            oneLast->next = two->next;
+        }
+        
+        
+        
+        return zero->next;
+        
+    }
