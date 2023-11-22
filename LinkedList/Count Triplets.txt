@@ -1,0 +1,49 @@
+void print(Node* head)
+{
+    while(head)
+    {
+        cout<<head->data<<" ";
+        head = head->next;
+    }
+}
+
+int countTriplets(struct Node* head, int x) 
+{ 
+    vector<int> v;
+    while(head)
+    {
+        v.push_back(head->data);
+        head = head->next;
+    }
+    
+    int n = v.size();
+    int count =0;
+    for(int i=0; i<n; i++)
+    {
+        int s = i+1;
+        int e = n-1;
+        while(s < e)
+        {
+            int a = v[i];
+            int b = v[s];
+            int c = v[e];
+            
+            if(a+b+c == x)
+            {
+                s++;
+                count++;
+            }
+            
+            else if(a+b+c > x)
+            {
+                e--;
+            }
+            
+            else 
+            {
+                s++;
+            }
+        }
+    }
+    return count;
+} 
