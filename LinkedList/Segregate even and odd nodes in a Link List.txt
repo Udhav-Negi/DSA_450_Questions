@@ -1,0 +1,27 @@
+Node* divide(int N, Node *head){
+        Node* evenList = new Node(-1);
+        Node* evenHead = evenList;
+        Node* oddList = new Node(-1);
+        Node* oddHead = oddList;
+        
+        while(head)
+        {
+            int val = head->data;
+            
+            
+            if(val%2 == 0)
+            {
+                evenList->next = new Node(val);
+                evenList = evenList->next;
+            }
+            
+            else 
+            {
+                oddList->next = new Node(val);
+                oddList = oddList->next; 
+            }
+            head = head->next;
+        }
+        evenList->next = oddHead->next;
+        return evenHead->next;
+    }
