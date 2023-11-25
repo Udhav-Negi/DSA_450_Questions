@@ -1,0 +1,48 @@
+ Node *compute(Node *head)
+    {
+        Node* prev = NULL, *curr = head;
+        bool bigger = false;
+        
+        while(curr)
+        {
+            bigger = false;
+            Node* temp = curr->next;
+            
+            while(temp)
+            {
+                if(temp->data > curr->data)
+                {
+                    bigger = true;
+                    break;
+                }
+                temp = temp->next;
+            }
+            
+            if(bigger)
+            {
+                if(prev == NULL)
+                {
+                    Node* nextPtr = curr->next;
+                    curr->next = NULL;
+                    delete curr;
+                    curr = nextPtr;
+                    head = curr;
+                }
+                else 
+                {
+                    Node* nextPtr = curr->next;
+                    curr->next = NULL;
+                    prev->next = nextPtr;
+                    delete curr;
+                    curr = nextPtr;
+                }
+            }
+            
+            else 
+            {
+                prev = curr;
+                curr = curr->next;
+            }
+        }
+        return head;
+    }
