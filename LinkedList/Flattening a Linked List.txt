@@ -1,0 +1,53 @@
+Node* merge(Node* first, Node* second)
+{
+    if(!first)
+    return second;
+    
+    if(!second)
+    return first;
+    
+    
+    Node* ans = new Node(-1);
+    Node* head = ans;
+    while(first && second)
+    {
+        int x = first->data;
+        int y = second->data;
+        
+        if(x < y)
+        {
+            ans->bottom = new Node(x);
+            first = first->bottom;
+        }
+        else 
+        {
+            ans->bottom = new Node(y);
+            second = second->bottom;
+        }
+        ans = ans->bottom;
+    }
+    while(first)
+    {
+        int x = first->data;
+        ans->bottom = new Node(x);
+        first = first->bottom;
+        ans = ans->bottom;
+    }
+    
+    while(second)
+    {
+        int y = second->data;
+        ans->bottom = new Node(y);
+        second = second->bottom;
+         ans = ans->bottom;
+    }
+    
+    return head->bottom;
+}
+Node *flatten(Node *root)
+{
+    if(!root || !(root->next))
+    return root;
+    
+    return merge(root, flatten(root->next));
+}
