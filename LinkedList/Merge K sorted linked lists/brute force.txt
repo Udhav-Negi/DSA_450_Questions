@@ -1,0 +1,56 @@
+Node* merge(Node* first, Node* second)
+    {
+        if(!first)
+        return second;
+        
+        if(!second)
+        return first;
+        
+        
+        Node* ans = new Node(-1);
+        Node* head = ans;
+        
+        while(first && second)
+        {
+            int x = first->data;
+            int y = second->data;
+            
+            if(x < y)
+            {
+                ans->next = first;
+                first = first->next;
+            }
+            else 
+            {
+                ans->next = second;
+                second = second->next;
+            }
+            ans = ans->next;
+        }
+        
+        while(first)
+        {
+            ans->next = first;
+            first = first->next;
+            ans = ans->next;
+        }
+        while(second)
+        {
+            ans->next = second;
+            second = second->next;
+            ans = ans->next;
+        }
+        return head->next;
+    }
+    Node * mergeKLists(Node *arr[], int k)
+    {
+        Node* ans = new Node(-1);
+        Node* head = ans->next;
+        
+        for(int i=0; i<k; i++)
+        {
+            head = merge(head, arr[i]);
+        }
+        return head;
+    }
+};
