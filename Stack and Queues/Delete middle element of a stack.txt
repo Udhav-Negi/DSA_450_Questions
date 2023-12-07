@@ -1,0 +1,27 @@
+class Solution
+{
+    public:
+    //Function to delete middle element of a stack.
+    stack<int>  solve(stack<int> &st, int count, int middle)
+    {
+        if(count == middle)
+        {
+            st.pop();
+            return st;
+        }
+        count = count - 1;
+        int x = st.top();
+        st.pop();
+        
+        solve(st, count, middle);
+        
+        st.push(x);
+        return st;
+    }
+    void deleteMid(stack<int>&st, int size)
+    {
+        int middle = ((size+1)/2);
+        solve(st, size, middle);
+        // cout<<"entered main again "<<endl;
+    }
+};
