@@ -1,0 +1,21 @@
+char* solve(char* temp, int len, int index)
+{
+    if(index == len-1)
+    {
+        temp[len-1-index] = temp[index];
+        return temp;
+    }
+    
+    char ch = temp[index];
+    int pos = index;
+    index = index + 1;
+    solve(temp, len, index);
+    temp[len-1-pos] = ch;
+    return temp;
+}
+char* reverse(char *str, int len)
+{
+    char * temp = str;
+    int index = 0;
+    return solve(temp, len, index);
+}
