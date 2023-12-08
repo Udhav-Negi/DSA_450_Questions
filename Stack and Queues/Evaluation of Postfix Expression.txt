@@ -1,0 +1,35 @@
+int eval(int op1, int  op2, char ch)
+    {
+        int x = op1;
+        int y = op2;
+        if(ch == '+')
+        return x + y;
+        else if (ch == '-')
+        return x - y;
+        else if(ch == '*')
+        return x * y;
+        return x/y;
+    }
+    int evaluatePostfix(string str)
+    {
+        int n = str.size();
+        stack<int> st;
+        for(int i=0; i<n; i++)
+        {
+            int ch = str[i];
+            if(str[i] == '+' || str[i] == '-' || str[i] == '*' || str[i] == '/' )
+            {
+                int op2 = st.top();
+                st.pop();
+                int op1 = st.top();
+                st.pop();
+                int x = eval(op1, op2, ch);
+                st.push(x);
+            }
+            else 
+            {
+                st.push(ch-'0');
+            }
+        }
+        return st.top();
+    }
