@@ -1,0 +1,48 @@
+long long solve(long long arr[], long long start, long long end, long long ind)
+    {
+        long long index = ind;
+        long long ans = ind;
+        
+        for(int i=start; (i<end) ;i++)
+        {
+            if(arr[i] >= arr[ind])
+            {
+                // index = i;
+                ans = i;
+            }
+            else 
+            return ans;
+        }
+        return ans;
+    }
+    
+    long long solveLeft(long long arr[], long long start, long long end, long long ind)
+    {
+        long long index = ind;
+        long long ans = ind;
+        
+        for(long long i=end-1; i>=0; i--)
+        {
+            if(arr[i] >= arr[ind])
+            ans = i;
+            
+            else 
+            return ans;
+        }
+        return ans;
+    }
+    long long getMaxArea(long long arr[], int n)
+    {
+        long long ans = -1;
+        long long curr;
+        for(long long i=0; i<n; i++)
+        {
+            long long left = solveLeft(arr, 0, i, i);
+            long long right = solve(arr,i+1, n, i);
+            
+            curr = arr[i] * (right-left+1);
+            ans = max(ans, curr);
+        }
+        
+        return ans;
+    }
