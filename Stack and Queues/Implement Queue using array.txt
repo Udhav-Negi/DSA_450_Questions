@@ -1,0 +1,32 @@
+void MyQueue :: push(int x)
+{
+        // Your Code
+        if(front == rear == 0)
+        {
+            arr[rear] = x;
+            rear++;
+        }
+        
+        else 
+        {
+            arr[rear++] = x;
+        }
+}
+
+int MyQueue :: pop()
+{
+        // Your Code       
+        if((front == rear) && rear == 0)
+        return -1;
+        
+        int val = arr[front];
+        
+        if(front == rear-1)
+        {
+            front = 0, rear = 0;
+        }
+        else 
+        front++;
+        
+        return val;
+}
