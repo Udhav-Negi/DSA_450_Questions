@@ -1,0 +1,32 @@
+int isStackPermutation(int n,vector<int> &a,vector<int> &b){
+        int j = 0;
+        int i = 0;
+        stack<int> st;
+        
+        while(i < n)
+        {
+            if(a[i] == b[j])
+            {
+                i++, j++;
+                while(!st.empty() && j < n)
+                {
+                    if(st.top() == b[j])
+                    {
+                        st.pop();
+                        j++;
+                    }
+                    
+                    else 
+                    break;
+                }
+            }
+            
+            else 
+            {
+                st.push(a[i++]);
+                
+            }
+        }
+        
+        return st.empty();
+    }
