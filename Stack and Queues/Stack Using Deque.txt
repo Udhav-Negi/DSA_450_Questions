@@ -1,0 +1,43 @@
+class Stack
+{
+public:
+    deque<int> dq;
+    Stack()
+    {
+    }
+
+    bool push(int x)
+    {
+        dq.push_back(x);
+        return true;
+    }
+
+    int pop()
+    {
+        if(dq.empty())
+        return -1;
+
+        int x = dq.back();
+        dq.pop_back();
+        return x;
+    }
+
+    int top()
+    {
+        if(dq.empty())
+        return -1;
+
+        return dq.back();
+        
+    }
+
+    bool isEmpty()
+    {
+        return dq.empty();
+    }
+
+    int size()
+    {
+        return dq.size();
+    }
+};
