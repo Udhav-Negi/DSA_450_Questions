@@ -1,0 +1,21 @@
+vector<int> rearrangeQueue(queue<int> &q){
+        queue<int> temp;
+        int n = q.size();
+        
+        while(q.size() != n/2)
+        {
+            temp.push(q.front());
+            q.pop();
+        }
+        
+        vector<int> ans;
+        
+        while(!temp.empty())
+        {
+            ans.push_back(temp.front());
+            ans.push_back(q.front());
+            temp.pop();
+            q.pop();
+        }
+        return ans;
+    }
