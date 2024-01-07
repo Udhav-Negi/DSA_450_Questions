@@ -1,0 +1,39 @@
+vector<int> rearrangeQueue(queue<int> &q){
+        stack<int> st;
+        vector<int> ans;
+        int n = q.size();
+        
+        while(q.size() != n/2)
+        {
+            st.push(q.front());
+            q.pop();
+        }
+        
+        while(!st.empty())
+        {
+            q.push(st.top());
+            st.pop();
+        }
+        
+        for(int i=1; i<=n/2; i++)
+        {
+            q.push(q.front());
+            q.pop();
+        }
+        
+        while(q.size() != n/2)
+        {
+            st.push(q.front());
+            q.pop();
+        }
+        
+        while(!st.empty() && !q.empty())
+        {
+            ans.push_back(st.top());
+            ans.push_back(q.front());
+            
+            st.pop();
+            q.pop();
+        }
+        return ans;
+    }
