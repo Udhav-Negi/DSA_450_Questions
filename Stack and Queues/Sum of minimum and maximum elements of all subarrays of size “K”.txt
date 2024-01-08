@@ -1,0 +1,86 @@
+vector<int> findMinimum(vector<int> &arr, int k)
+{
+	int n = arr.size();
+	vector<int> ans;
+	deque<int> dqmax;
+	
+	for(int i=0; i<k; i++)
+	{
+		while(!dqmax.empty() && arr[i] <= arr[dqmax.back()])
+		{
+			dqmax.pop_back();
+		}
+		
+		dqmax.push_back(i);
+	}
+	
+	ans.push_back(arr[dqmax.front()]);
+	
+	for(int i=k; i<n; i++)
+	{
+		// removal logic 
+		if(i-k == dqmax.front())
+		dqmax.pop_front();
+		
+		// addition logic 
+		while(!dqmax.empty() && arr[i] <= arr[dqmax.back()])
+		{
+			dqmax.pop_back();
+		}
+		
+		dqmax.push_back(i);
+		ans.push_back(arr[dqmax.front()]);
+	}
+	
+	return ans;
+}
+
+vector<int> findMaximum(vector<int> &arr, int k)
+{		
+	int n = arr.size();
+	vector<int> ans;
+	deque<int> dqmax;
+	
+	for(int i=0; i<k; i++)
+	{
+		while(!dqmax.empty() && arr[i] >= arr[dqmax.back()])
+		{
+			dqmax.pop_back();
+		}
+		
+		dqmax.push_back(i);
+	}
+	
+	ans.push_back(arr[dqmax.front()]);
+	
+	for(int i=k; i<n; i++)
+	{
+		// removal logic 
+		if(i-k == dqmax.front())
+		dqmax.pop_front();
+		
+		// addition logic 
+		while(!dqmax.empty() && arr[i] >= arr[dqmax.back()])
+		{
+			dqmax.pop_back();
+		}
+		
+		dqmax.push_back(i);
+		ans.push_back(arr[dqmax.front()]);
+	}
+	
+	return ans;
+}
+long long sumOfMaxAndMin(vector<int> &nums, int n, int k) {
+	// maximum in the window of size k 
+	vector<int> maximum = findMaximum(nums, k);
+	// minimum in the window of size k 
+	vector<int> minimum = findMinimum(nums, k);
+
+	long long sum = 0;
+	for(int i=0; i<maximum.size(); i++)
+	{
+		sum += maximum[i] + minimum[i];
+	}
+	return sum;
+}
