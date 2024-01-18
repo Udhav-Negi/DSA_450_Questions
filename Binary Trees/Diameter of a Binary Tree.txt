@@ -1,0 +1,20 @@
+pair<int, int> solve(Node* root)
+    {
+        if(!root)
+        return make_pair(0, 0);
+        
+        pair<int, int> leftDia = solve(root->left);
+        pair<int, int> rightDia = solve(root->right);
+        
+        int op1 = leftDia.first;
+        int op2 = rightDia.first;
+        int op3 = leftDia.second + rightDia.second + 1;
+        
+        pair<int, int> ans;
+        ans.first = max(op1, max(op2, op3));
+        ans.second = max(leftDia.second, rightDia.second)+1;
+        return ans;
+    }
+    int diameter(Node* root) {
+        return solve(root).first;
+    }
