@@ -1,0 +1,56 @@
+void solveLeft(Node* root, vector<int> &ans)
+    {
+        if(!root || (!(root->left) && !(root->right)))
+        return;
+        
+        ans.push_back(root->data);
+        
+        if(root->left)
+        solveLeft(root->left, ans);
+        
+        else 
+        solveLeft(root->right, ans);
+    }
+    void solveLeaf(Node* root, vector<int> &ans)
+    {
+        if(!root)
+        return;
+        
+        if(!(root->left) && !(root->right))
+        ans.push_back(root->data);
+        
+        solveLeaf(root->left, ans);
+        solveLeaf(root->right, ans);
+    }
+    void solveReverseRight(Node* root, vector<int> &ans)
+    {
+        if(!root || (!(root->left) && !(root->right)))
+        return;
+        
+        ans.push_back(root->data);
+        
+        if(root->right)
+        solveReverseRight(root->right, ans);
+        
+        else 
+        solveReverseRight(root->left, ans);
+    }
+    vector <int> boundary(Node *root)
+    {
+        if(!root)
+        return {};
+        
+        vector<int> ans, temp;
+        ans.push_back(root->data);
+        if(!(root->left) && !(root->right))
+        return ans;
+        
+        solveLeft(root->left, ans);
+        solveLeaf(root, ans);
+        solveReverseRight(root->right, temp);
+        
+        reverse(temp.begin(), temp.end());
+        for(auto i : temp)
+        ans.push_back(i);
+        return ans;
+    }
