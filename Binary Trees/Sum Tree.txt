@@ -1,0 +1,24 @@
+pair<int, bool> solve(Node* root)
+    {
+        if(!root)
+        return make_pair(0, true);
+        
+        if(!(root->left) && !(root->right))
+        return make_pair(root->data, true);
+        
+        pair<int, bool> p1 = solve(root->left);
+        pair<int, bool> p2 = solve(root->right);
+        if(!p1.second || !p2.second)
+        return make_pair(root->data, false);
+        
+        
+        if(root->data == p1.first + p2.first)
+        return make_pair(root->data + p1.first + p2.first, true);
+        
+        return make_pair(root->data, false);
+        
+    }
+    bool isSumTree(Node* root)
+    {
+         return solve(root).second;
+    }
