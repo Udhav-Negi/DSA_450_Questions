@@ -1,0 +1,28 @@
+bool check(Node *root)
+    {
+        queue<pair<Node*, int>> q;
+        q.push(make_pair(root, 0));
+        int level = -1;
+        while(!q.empty())
+        {
+            pair<Node*, int>  temp = q.front();
+            q.pop();
+            Node* node = temp.first;
+            
+            if(!(node->left) && !(node->right))
+            {
+                if(level == -1)
+                level = temp.second;
+                
+                if(level != temp.second)
+                return false;
+            }
+            
+            if(node->left)
+            q.push(make_pair(node->left, temp.second+1));
+            
+            if(node->right)
+            q.push(make_pair(node->right, temp.second+1));
+        }
+        return true;
+    }
