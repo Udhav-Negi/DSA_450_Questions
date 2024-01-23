@@ -1,0 +1,39 @@
+bool solve(Node* root, int &k, int node, int &ans)
+{
+    if(!root)
+    return false;
+    
+    if(root->data == node)
+    {
+        // k--;
+        return true;
+    }
+    
+    
+    bool leftAns = solve(root->left, k, node, ans);
+    bool rightAns = solve(root->right, k, node, ans);
+    
+    
+    if(leftAns || rightAns)
+    {
+        k--;
+        if(k == 0)
+        {
+            k--;
+            // cout<<"entered for "<<root->data<<endl;
+            ans = root->data;
+            return true;
+        }
+        return true;
+    }
+    
+    
+    return false;
+    
+}
+int kthAncestor(Node *root, int k, int node)
+{
+    int ans = -1;
+    solve(root, k, node, ans);
+    return ans;
+}
