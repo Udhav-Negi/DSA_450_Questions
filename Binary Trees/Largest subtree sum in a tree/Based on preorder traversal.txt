@@ -1,0 +1,29 @@
+void preOrder(Node* root, vector<Node*> &ans)
+    {
+        if(!root)
+        return;
+        
+        ans.push_back(root);
+        preOrder(root->left, ans);
+        preOrder(root->right, ans);
+    }
+    int calculateSum(Node* root)
+    {
+        if(!root)
+        return 0;
+        
+        return root->data + calculateSum(root->left) + calculateSum(root->right);
+    }
+    int findLargestSubtreeSum(Node* root)
+    {
+        vector<Node*> pre;
+        preOrder(root, pre);
+        
+        int ans = INT_MIN;
+        for(auto i : pre)
+        {
+            int curr = calculateSum(i);
+            ans = max(ans, curr);
+        }
+        return ans;
+    }
