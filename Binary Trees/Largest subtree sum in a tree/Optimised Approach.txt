@@ -1,0 +1,15 @@
+int solve(Node* root, int &ans)
+    {
+        if(!root)
+        return 0;
+        
+        int curr = root->data + solve(root->left, ans) + solve(root->right, ans);
+        ans = max(ans, curr);
+        return curr;
+    }
+    int findLargestSubtreeSum(Node* root)
+    {
+        int ans = INT_MIN;
+        solve(root, ans);
+        return ans;
+    }
