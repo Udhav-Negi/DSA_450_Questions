@@ -1,0 +1,24 @@
+int solve(Node* root)
+    {
+        if(!root)
+        return 0;
+        
+        int incl1=0, incl2=0, excl;
+        if(root->left)
+        {
+            incl1 = solve(root->left->left) + solve(root->left->right);
+        }
+        
+        if(root->right)
+        {
+            incl2 = solve(root->right->left) + solve(root->right->right);
+        }
+        
+        excl = solve(root->left) + solve(root->right);
+        return max(root->data + incl1 + incl2, excl);
+        
+    }
+    int getMaxSum(Node *root) 
+    {
+        return solve(root);
+    }
