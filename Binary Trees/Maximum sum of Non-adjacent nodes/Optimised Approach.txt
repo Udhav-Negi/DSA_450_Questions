@@ -1,0 +1,16 @@
+pair<int, int> solve(Node* root)
+    {
+        if(!root)
+        return make_pair(0, 0);
+        
+        pair<int, int> p1 = solve(root->left);
+        pair<int, int> p2 = solve(root->right);
+        
+        return make_pair(root->data + p1.second + p2.second, max(p1.first, p1.second) + max(p2.first, p2.second));
+        
+    }
+    int getMaxSum(Node *root) 
+    {
+        pair<int, int> ans = solve(root);
+        return max(ans.first, ans.second);
+    }
