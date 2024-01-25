@@ -1,0 +1,52 @@
+Node* lca(Node* root, int a, int b)
+    {
+        if(!root)
+        return NULL;
+        
+        if(root->data == a || root->data == b)
+        return root;
+        
+        Node* ansLeft = lca(root->left, a, b);
+        Node* ansRight = lca(root->right, a, b);
+        
+        if(ansLeft && ansRight)
+        return root;
+        
+        if(ansLeft)
+        return ansLeft;
+        
+        return ansRight;
+        
+    }
+    pair<bool, int> findHeight(Node* temp, int n1)
+    {
+        if(!temp)
+        return make_pair(false, 0);
+        
+        if(temp->data == n1)
+        return make_pair(true, 1);
+        
+        pair<bool, int> lHeight = findHeight(temp->left, n1);
+        pair<bool, int> rHeight = findHeight(temp->right, n1);
+        
+        if(lHeight.first)
+        {
+            return make_pair(true, 1 + lHeight.second);
+        }
+        
+        if(rHeight.first)
+        {
+            return make_pair(true, 1 + rHeight.second);
+        }
+        
+        return make_pair(false, 0);
+        
+    }
+    int findDist(Node* root, int a, int b) {
+        Node* temp = lca(root, a, b);
+        
+        pair<bool, int> lHeight = findHeight(temp, a);
+        pair<bool, int> rHeight = findHeight(temp, b);
+ 
+        return lHeight.second + rHeight.second - 2;
+    }
