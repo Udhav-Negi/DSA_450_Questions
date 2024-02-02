@@ -1,0 +1,29 @@
+void solve(Node* root, queue<Node*> &q, vector<int> &ans)
+{
+    if(!root)
+    return;
+    
+    ans.push_back(root->data);
+    if(root->left)
+    q.push(root->left);
+    
+    if(root->right)
+    {
+        solve(root->right, q, ans);
+    }
+    else if(!q.empty())
+    {
+        Node* temp = q.front();
+        q.pop();
+        solve(temp, q, ans);
+    }
+}
+
+vector<int> diagonal(Node *root)
+{
+    queue<Node*> q;
+    vector<int> ans;
+    solve(root, q, ans);
+    return ans;
+    
+}
