@@ -1,0 +1,48 @@
+Node* findMin(Node* root)
+{
+    if(!(root->left))
+    return root;
+    
+    return findMin(root->left);
+}
+Node *deleteNode(Node *root, int x) {
+    if(!root)
+    return NULL;
+    
+    if(x > root->data)
+    root->right = deleteNode(root->right, x);
+    
+    else if(x < root->data)
+    root->left = deleteNode(root->left, x);
+    
+    else if(x == root->data)
+    {
+        if(!(root->left) && !(root->right))
+        {
+            delete root;
+            return NULL;
+        }
+        
+        else if(root->left && !(root->right))
+        {
+            Node* temp = root->left;
+            delete root;
+            return temp;
+        }
+        
+        else if(!(root->left) && root->right)
+        {
+            Node* temp = root->right;
+            delete root;
+            return temp;
+        }
+        
+        else if(root->right && root->left)
+        {
+            int mini = findMin(root->right)->data;
+            root->data = mini;
+            root->right = deleteNode(root->right, mini);
+            return root;
+        }
+    }
+}
