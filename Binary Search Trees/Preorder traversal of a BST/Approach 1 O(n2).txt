@@ -1,0 +1,22 @@
+BinaryTreeNode<int>* createTree(BinaryTreeNode<int>* &root, int data)
+{
+    if(!root)
+    return new BinaryTreeNode<int>(data);
+
+    if(data < root->data)
+    root->left = createTree(root->left, data);
+
+    else 
+    root->right = createTree(root->right, data);
+
+    return root;
+}
+BinaryTreeNode<int>* preorderToBST(vector<int> &preorder) {
+    BinaryTreeNode<int>* root = NULL;
+    int n = preorder.size();
+    for(int i=0; i<n; i++)
+    {
+        root = createTree(root, preorder[i]);
+    }
+    return root;
+}
