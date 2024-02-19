@@ -1,0 +1,27 @@
+Node* makeTree(Node* root, vector<int> &curr, int &index)
+      {
+          if(!root || index >= curr.size())
+          return NULL;
+          
+          Node* leftAns = makeTree(root->left, curr, index);
+          root->data = curr[index++];
+          Node* rightAns = makeTree(root->right, curr, index);
+          return root;
+      }
+      void inorder(Node* root, vector<int> &curr)
+      {
+          if(!root)
+          return;
+          
+          inorder(root->left, curr);
+          curr.push_back(root->data);
+          inorder(root->right, curr);
+      }
+        Node *binaryTreeToBST (Node *root)
+        {
+            vector<int> curr;
+            inorder(root, curr);
+            sort(curr.begin(), curr.end());
+            int index = 0;
+            return makeTree(root, curr, index);
+        }
