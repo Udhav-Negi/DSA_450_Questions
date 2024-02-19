@@ -1,0 +1,30 @@
+void storeValues(Node* root, set<int> &s)
+    {
+        if(!root)
+        return;
+        
+        storeValues(root->left, s);
+        s.insert(root->data);
+        storeValues(root->right, s);
+    }
+    void solve(Node* root, set<int> &s, int x, int &count)
+    {
+        if(!root)
+        return;
+        
+        auto ptr = s.find(x - root->data);
+        if(ptr != s.end())
+        count++;
+        
+        solve(root->left, s, x, count);
+        solve(root->right, s, x, count);
+    }
+    int countPairs(Node* root1, Node* root2, int x)
+    {
+        set<int> s;
+        storeValues(root2, s);
+        
+        int count = 0;
+        solve(root1, s, x, count);
+        return count;
+    }
