@@ -1,0 +1,27 @@
+ void inorder(Node* root, vector<int> &curr)
+    {
+        if(!root)
+        return;
+        
+        inorder(root->left, curr);
+        curr.push_back(root->data);
+        inorder(root->right, curr);
+    }
+    Node*  makeTree(vector<int>&curr, int start, int end)
+    {
+        if(start > end)
+        return NULL;
+        
+        int mid = end + (start-end)/2;
+        Node* root = new Node(curr[mid]);
+        root->left = makeTree(curr, start, mid-1 );
+        root->right = makeTree(curr, mid+1, end);
+        return root;
+    }
+    Node* buildBalancedTree(Node* root)
+    {
+    	vector<int> curr;
+    	inorder(root, curr);
+    	int start = 0, end = curr.size() - 1;
+    	return makeTree(curr, start, end);
+    }
