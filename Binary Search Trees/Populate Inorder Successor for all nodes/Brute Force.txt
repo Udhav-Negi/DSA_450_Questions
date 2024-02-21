@@ -1,0 +1,22 @@
+void inorder(Node* root, vector<Node*> &curr)
+    {
+        if(!root)
+        return;
+        
+        inorder(root->left, curr);
+        curr.push_back(root);
+        inorder(root->right, curr);
+    }
+    
+    void populateNext(Node *root)
+    {
+        vector<Node*> curr;
+        inorder(root, curr);
+        
+        int n = curr.size();
+        curr.back()->next = NULL;
+        for(int i=0; i<n-1; i++)
+        {
+            curr[i]->next = curr[i+1];
+        }
+    }
