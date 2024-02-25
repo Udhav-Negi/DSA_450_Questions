@@ -1,0 +1,17 @@
+Node* makeTree(int pre[], int &index, int size, int mini, int maxi)
+    {
+        if(index >= size || pre[index] < mini || pre[index] > maxi)
+        return NULL;
+        
+        Node* root = newNode(pre[index++]);
+        root->left = makeTree(pre, index, size, mini, root->data);
+        root->right = makeTree(pre, index, size, root->data, maxi);
+        return root;
+    }
+    Node* post_order(int pre[], int size)
+    {
+        int index = 0;
+        int mini = INT_MIN;
+        int maxi = INT_MAX;
+        return makeTree(pre, index, size, mini, maxi);
+    }
