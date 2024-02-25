@@ -1,0 +1,35 @@
+bool solve(Node* root, Node* mini, Node* maxi)
+    {
+        if(!root)
+        return false;
+        
+        if(!(root->left) && !(root->right))
+        {
+            if(root->data == 1)
+            return true;
+            
+            else if(mini && maxi && abs(root->data - mini->data) == 1 && abs(root->data - maxi->data) == 1)
+            return true;
+            
+            else if(mini && !maxi)
+            return false;
+            
+            else if(maxi && !mini)
+            return false;
+            
+            else 
+            return false;
+        }
+        
+        return solve(root->left, mini, root) || solve(root->right, root, maxi);
+    }
+    bool isDeadEnd(Node *root)
+    {
+        Node* mini = NULL;
+        Node* maxi = NULL;
+        if(!(root->left) && !(root->right))
+        {
+            return false;
+        }
+        return solve(root, mini, maxi);
+    }
