@@ -1,0 +1,45 @@
+bool isCBT(Node* tree, int index, int count)
+    {
+        if(!tree)
+        return true;
+        
+        if(index >= count)
+        return false;
+        
+        else 
+        {
+            bool left = isCBT(tree->left, 2*index+1, count);
+            bool right = isCBT(tree->right, 2*index+2, count);
+            return left && right;
+        }
+    }
+    bool isMaxHeap(Node* tree)
+    {
+        if(!(tree->left) && !(tree->right))
+        return true;
+        
+        if(!(tree->left) && tree->right)
+        return false;
+        
+        if(!(tree->right))
+        return tree->data > tree->left->data;
+        
+        bool left = isMaxHeap(tree->left);
+        bool right = isMaxHeap(tree->right);
+        
+        return left && right && (tree->data > tree->left->data) && (tree->data > tree->right->data);
+    }
+    int countNode(Node* tree)
+    {
+        if(!tree)
+        return 0;
+        
+        return 1 + countNode(tree->left) + countNode(tree->right);
+    }
+    
+    bool isHeap(struct Node* tree) {
+        int index = 0;
+        int count = countNode(tree);
+        bool ans = isCBT(tree, index, count);
+        return ans && isMaxHeap(tree);
+    }
