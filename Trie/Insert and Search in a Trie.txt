@@ -53,3 +53,4 @@ void insertUtil(TrieNode* root, string word)
         {
             return searchUtil(root, key);
         }
+// This is trie data structure
