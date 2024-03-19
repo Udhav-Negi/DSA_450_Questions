@@ -1,0 +1,29 @@
+void createBfs(vector<vector<int>> &adj, vector<int> &ans, map<int, bool> &visited, int node)
+{
+    queue<int> q;
+    q.push(node);
+    visited[node] = true;
+    while(!q.empty())
+    {
+        int temp = q.front();
+        q.pop();
+        ans.push_back(temp);
+        for(auto i : adj[temp])
+        {
+            if(!visited[i])
+            {
+                q.push(i);
+                visited[i] = true;
+            }
+        }
+    }
+}
+vector<int> bfsTraversal(int n, vector<vector<int>> &adj)
+{
+    vector<int> ans;
+    map<int, bool> visited;
+    for(int i=0; i<n; i++)
+    visited[i] = false;
+    createBfs(adj, ans, visited, 0);
+    return ans;
+}
