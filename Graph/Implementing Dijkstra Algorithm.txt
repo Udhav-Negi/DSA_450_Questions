@@ -1,0 +1,45 @@
+vector <int> dijkstra(int v, vector<vector<int>> adj[], int s)
+    {
+        map<int, vector<pair<int, int>>> adjList;
+        vector<int> dist(v, INT_MAX);
+        set<pair<int, int>> st;
+        dist[s] = 0;
+        
+        // int u;
+        for(int i=0; i<v; i++)
+        {
+            for(int j=0; j<adj[i].size(); j++)
+            {
+                int u = i;
+                int v = adj[i][j][0];
+                int w = adj[i][j][1];
+                adjList[u].push_back({v, w});
+                adjList[v].push_back({u, w});
+            }
+        }
+        
+        st.insert({0, s}); // distance, node 
+        while(!st.empty())
+        {
+            auto front = st.begin();
+            st.erase(front);
+            
+            int distance = (*front).first;
+            int node = (*front).second;
+            for(auto neighbour : adjList[node])
+            {
+                if(distance + neighbour.second < dist[neighbour.first])
+                {
+                    auto record = st.find({dist[neighbour.first], neighbour.first});
+                    dist[neighbour.first] = neighbour.second + distance;
+                    
+                    if(record != st.end())
+                    st.erase({dist[neighbour.first], neighbour.first});
+                    
+                    st.insert({dist[neighbour.first], neighbour.first});
+                }
+            }
+        }
+        
+        return dist;
+    }
