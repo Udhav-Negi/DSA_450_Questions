@@ -1,0 +1,40 @@
+vector<int> topoSort(int v, vector<int> adj[]) 
+	{
+	    // Kahn algorithm
+	    unordered_map<int, int> indegree;
+	    queue<int> q;
+	    vector<int> ans;
+	    
+	    for(int i=0; i<v; i++)
+	    {
+	        for(auto j : adj[i])
+	        indegree[j]++;
+	    }
+	    
+	    for(int i=0; i<v; i++)
+	    {
+	        if(indegree[i] == 0)
+	        {
+	           // cout<<"entered for "<<i<<endl;
+	            q.push(i);
+	        }
+	    }
+	    
+	    
+	    while(!q.empty())
+	    {
+	        int front = q.front();
+	        q.pop();
+	        
+	        ans.push_back(front);
+	        
+	        for(auto i : adj[front])
+	        {
+	            indegree[i]--;
+	            if(indegree[i] == 0)
+	            q.push(i);
+	        }
+	    }
+	    
+	    return ans;
+	}
