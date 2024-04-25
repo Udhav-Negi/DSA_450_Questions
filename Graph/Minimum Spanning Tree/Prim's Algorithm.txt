@@ -1,0 +1,47 @@
+int spanningTree(int n, vector<vector<int>> adj[])
+    {
+        map<int, vector<pair<int, int>>> adjList;
+        vector<int> key(n, INT_MAX);
+        vector<int> parent(n, -1);
+        vector<bool> mst(n, false);
+        
+        parent[0] = -1;
+        key[0] = 0;
+        int sum = 0;
+        
+        
+        for(int i=0; i<n; i++)
+        {
+            int u, mini = INT_MAX;
+            for(int i=0; i<n; i++)
+            {
+                if(key[i] < mini && !mst[i])
+                {
+                    u = i;
+                    mini = key[i];
+                }
+            }
+            
+            mst[u] = true;
+            for(auto it : adj[u])
+            {
+                int v = it[0];
+                int w = it[1];
+                
+                if(!mst[v] && w < key[v])
+                {
+                    key[v] = w;
+                    parent[v] = u;
+                }
+            }
+            
+        }
+        
+        
+        for(int i=0; i<n; i++)
+        {
+            sum += key[i];
+        }
+        
+        return sum;
+    }
