@@ -1,0 +1,64 @@
+void topoSort(int node, unordered_map<int, bool> &visited, vector<vector<int>>& adj, stack<int> &s)
+	{
+	    visited[node] = true;
+	    for(auto nbr : adj[node])
+	    {
+	        if(!visited[nbr])
+	        topoSort(nbr, visited, adj, s);
+	    }
+	    
+	    s.push(node);
+	}
+	
+	void scc(int node, unordered_map<int, bool> &visited, unordered_map<int, vector<int>> &transpose)
+	{
+	    visited[node] = true;
+	    for(auto nbr : transpose[node])
+	    {
+	        if(!visited[nbr])
+	        scc(nbr, visited, transpose);
+	    }
+	}
+    int kosaraju(int v, vector<vector<int>>& adj)
+    {
+        unordered_map<int, bool> visited;
+        unordered_map<int, vector<int>> transpose;
+        stack<int> s;
+        int count = 0;
+        
+        // 1 Create topological sort 
+        for(int i=0; i<v; i++)
+        {
+            if(!visited[i])
+            topoSort(i, visited, adj, s);
+        }
+        
+        
+        stack<int> temp = s;
+        
+        // 2 Create transpose 
+        for(int i=0; i<v; i++)
+        {
+            for(auto nbr : adj[i])
+            transpose[nbr].push_back(i);
+        }
+        
+        
+        for(int i=0; i<v; i++)
+        visited[i] = false;
+        
+        // 3 find strongly connected components 
+        while(!s.empty())
+        {
+            int top = s.top();
+            s.pop();
+            
+            if(!visited[top])
+            {
+                count++;
+                scc(top, visited, transpose);
+            }
+        }
+        
+        return count;
+    }
